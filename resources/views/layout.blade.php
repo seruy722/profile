@@ -22,6 +22,13 @@
             .alert-danger{
                 color: red;
             }
+            .container{
+                display: flex;
+                justify-content: space-around;
+            }
+            .left_side{
+                margin-right: 50px;
+            }
         </style>
     </head>
     <body>

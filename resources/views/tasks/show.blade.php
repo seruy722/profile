@@ -45,7 +45,10 @@
             </table>
         </div>
     </div>
-    <a href="{{route('tasks.edit',$task->id)}}">Редактировать</a>
-    <a href="{{route('tasks.index')}}">На главную</a>
+    <div class="link">
+        <a href="{{route('tasks.edit',$task->id)}}">Редактировать</a>
+        <a href="{{route('tasks.index')}}">На главную</a>
+    </div>
+
 </div>
 @endsection

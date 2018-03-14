@@ -22,13 +22,13 @@
         <fieldset>
             <legend>Любимие жанры фильмов</legend>
             <label for="action">Боевики</label>
-            <input type="checkbox" name="action" id="action" value="Боевики" {{old('action')=='Боевики'?'checked':''}}>
+        <input type="checkbox" name="genre[]" id="action" value="Боевики" {{(is_array(old('genre')) && in_array('Боевики',old('genre')))?'checked':''}}>
             <label for="comedy">Комедии</label>
-            <input type="checkbox" name="comedy" id="comedy" value="Комедии" {{old('comedy')=='Комедии'?'checked':''}}>
+            <input type="checkbox" name="genre[]" id="comedy" value="Комедии" {{(is_array(old('genre')) && in_array('Комедии',old('genre')))?'checked':''}}>
             <label for="adventure">Приключения</label>
-            <input type="checkbox" name="adventure" id="adventure" value="Приключения" {{old('adventure')=='Приключения'?'checked':''}}>
+            <input type="checkbox" name="genre[]" id="adventure" value="Приключения" {{(is_array(old('genre')) && in_array('Приключения',old('genre')))?'checked':''}}>
             <label for="historical">Исторические</label>
-            <input type="checkbox" name="historical" id="historical" value="Исторические" {{old('historical')=='Исторические'?'checked':''}}>
+            <input type="checkbox" name="genre[]" id="historical" value="Исторические" {{(is_array(old('genre')) && in_array('Исторические',old('genre')))?'checked':''}}>
         </fieldset>
         <fieldset>
             <legend>Выбирите пол</legend>

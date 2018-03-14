@@ -20,16 +20,17 @@
         <input type="text" name="card_of_bank" id="card_of_bank" value="{{ $task->card_of_bank }}">
         <label for="comment">Комментарий</label>
         <textarea name="comment" id="comment">{{ $task->comment }}</textarea>
+        
         <fieldset>
                 <legend>Любимие жанры фильмов</legend>
                 <label for="action">Боевики</label>
-                <input type="checkbox" name="action" id="action" value="Боевики" {{stristr($task->genre, 'Боевики')?'checked':''}}>
+        <input type="checkbox" name="genre[]" id="action" value="Боевики" {{stristr($task->genre,'Боевики')?'checked':''}}>
                 <label for="comedy">Комедии</label>
-                <input type="checkbox" name="comedy" id="comedy" value="Комедии" {{stristr($task->genre, 'Комедии')?'checked':''}}>
+                <input type="checkbox" name="genre[]" id="comedy" value="Комедии" {{stristr($task->genre,'Комедии')?'checked':''}}>
                 <label for="adventure">Приключения</label>
-                <input type="checkbox" name="adventure" id="adventure" value="Приключения" {{stristr($task->genre, 'Приключения')?'checked':''}}>
+                <input type="checkbox" name="genre[]" id="adventure" value="Приключения" {{stristr($task->genre,'Приключения')?'checked':''}}>
                 <label for="historical">Исторические</label>
-                <input type="checkbox" name="historical" id="historical" value="Исторические" {{stristr($task->genre, 'Исторические')?'checked':''}}>
+                <input type="checkbox" name="genre[]" id="historical" value="Исторические" {{stristr($task->genre,'Исторические')?'checked':''}}>
             </fieldset>
         <fieldset>
             <legend>Выбирите пол</legend>
@@ -56,5 +57,5 @@
         <input type="submit">
         <a href="{{route('tasks.index')}}">Отменить</a>
 </form>
-<img src="{{asset('images/'.$task->file_name)}}" alt="" height="200px" width="200px">
+<p><img src="{{asset('images/'.$task->file_name)}}" alt="" height="200px" width="200px"></p>
 @endsection

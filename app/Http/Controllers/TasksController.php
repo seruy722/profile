@@ -55,7 +55,7 @@ class TasksController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validUpdate($request);
+        $this->validUpdate($request,$id);
 
         $genre = $request->only('genre');
         $genre = implode(',', $genre['genre']);
@@ -101,6 +101,7 @@ class TasksController extends Controller
             'day' => 'required',
             'genre' => 'required',
             'comment' => 'required',
+            'file' => 'image',
         ], [
             'surname.required' => 'Поле Фамилия незаполнено.',
             'surname.min' => 'Поле Фамилия не может быть меньше 2 символов.',
@@ -118,20 +119,21 @@ class TasksController extends Controller
             'day.required' => 'Поле День недели незаполнено.',
             'genre.required' => 'Выберете минимум 1 жанр фильма.',
             'comment.required' => 'Поле комментарий незаполнено.',
-
+            'file.image' => 'Файл должен быть изображением',
         ]);
     }
 
-    public function validUpdate($req)
+    public function validUpdate($req,$id)
     {
         $this->validate($req, [
             'surname' => 'required|min:2|max:100',
             'name' => 'required|string|max:100|min:2',
-            'email' => 'required|string|email|max:100',
-            'phone' => 'required|digits:10',
+            'email' => 'required|string|email|max:100|unique:tasks,email,'.$id,
+            'phone' => 'required|digits:10|unique:tasks,phone,'.$id,
             'comment' => 'nullable',
             'day' => 'required',
             'genre' => 'required',
+            'file' => 'image',
         ], [
             'surname.required' => 'Поле Фамилия незаполнено.',
             'surname.min' => 'Поле Фамилия не может быть меньше 2 символов.',
@@ -147,7 +149,9 @@ class TasksController extends Controller
             'day.required' => 'Поле День недели незаполнено.',
             'genre.required' => 'Выберете минимум 1 жанр фильма.',
             'comment.required' => 'Поле комментарий незаполнено.',
-
+            'file.image' => 'Файл должен быть изображением',
+            'phone.unique' => 'Номер телефона занят.',
+            'email.unique' => 'Email адрес занят.',
         ]);
     }
 

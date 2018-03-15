@@ -24,14 +24,14 @@ class TasksController extends Controller
         return view('tasks.create');
     }
 
-    public function store(Request $request)
+    public function insert(Request $request)
     {
         $this->validFields($request);
 
         $arr = $request->all();
-        $arr['file_name'] = $this->checkUploadFile('file',$request);
+        $arr['file_name'] = $this->checkUploadFile('file', $request);
         $arr['genre'] = $this->arrayToString('genre', $request);
-        
+
         Task::create($arr);
         return redirect()->route('tasks.index');
     }
@@ -47,11 +47,11 @@ class TasksController extends Controller
         $this->validFields($request, $id);
 
         $arr = $request->all();
-        $file = $this->checkUploadFile('file',$request,$id);
+        $file = $this->checkUploadFile('file', $request, $id);
 
-        if(is_string($file)){
+        if (is_string($file)) {
             $arr['file_name'] = $file;
-        }else{
+        } else {
             $arr = $file;
         }
 
@@ -74,28 +74,27 @@ class TasksController extends Controller
         return redirect()->route('tasks.index');
     }
 
-    public function checkUploadFile($file,$req,$id=null){
+    public function checkUploadFile($file, $req, $id = null)
+    {
         if ($req->hasFile($file)) {
             $image = $req->file($file);
-            $fileName = $image->getClientOriginalName();
+            $fileName = 'IMG-' . md5(microtime() . rand()) . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/images');
             $image->move($destinationPath, $fileName);
         }
-            
-        if($id || $req->hasFile($file)){
-            return $fileName;
+        if ($id) {
+            if ($req->hasFile($file)) {
+                return $fileName;
+            } else {
+                return $arr = $req->except('file_name');
+            }
+        } else {
+            if ($req->hasFile($file)) {
+                return $fileName;
+            } else {
+                return 'nofoto.jpg';
+            }
         }
-        if($id && $req->hasFile($file)){
-           return $fileName;
-        }
-        if($id && !($req->hasFile($file))){
-            return $arr = $req->except('file_name');
-        }
-
-        
-            return 'nofoto.jpg';
-        
-        
     }
 
     public function arrayToString($field, $req)

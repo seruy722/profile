@@ -3,7 +3,7 @@
 @section('content')
 @include('errors')
 
-<form action="{{route('tasks.store')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('tasks.insert')}}" method="POST" enctype="multipart/form-data">
     {{ csrf_field() }}
     <fieldset>
         <legend>Информация о пользователе</legend>
